@@ -1,25 +1,4 @@
-<template>
-  <div class="container mt-5">
-    <h2>Профиль пользователя {{ userInfo.username }}</h2>
 
-    <div class="mb-3">
-      <label for="firstName" class="form-label">Имя:</label>
-      <input type="text" class="form-control" id="firstName" v-model="newFirstName" />
-    </div>
-
-    <div class="mb-3">
-      <label for="lastName" class="form-label">Фамилия:</label>
-      <input type="text" class="form-control" id="lastName" v-model="newLastName" />
-    </div>
-
-    <div class="mb-3">
-      <label for="middleName" class="form-label">Отчество:</label>
-      <input type="text" class="form-control" id="middleName" v-model="newMiddleName" />
-    </div>
-
-    <button @click="updateProfile" class="btn btn-primary">Сохранить изменения</button>
-  </div>
-</template>
 
 <script>
 export default {
@@ -82,4 +61,27 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="container mt-5">
+    <h2>Профиль пользователя {{ userInfo.username }}</h2>
+
+    <div class="mb-3">
+      <label for="firstName" class="form-label">Имя:</label>
+      <input type="text" class="form-control" id="firstName" v-model="newFirstName" />
+    </div>
+
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Фамилия:</label>
+      <input type="text" class="form-control" id="lastName" v-model="newLastName" />
+    </div>
+
+    <div class="mb-3">
+      <label for="middleName" class="form-label">Отчество:</label>
+      <input type="text" class="form-control" id="middleName" v-model="newMiddleName" />
+    </div>
+
+    <button @click="updateProfile" class="btn btn-primary">Сохранить изменения</button>
+  </div>
+</template>
 

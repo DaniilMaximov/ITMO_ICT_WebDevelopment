@@ -1,84 +1,10 @@
-<template>
-  <div>
-    <div class="add-newspaper-form text-center">
-      <h3>Добавить новую газету</h3>
-      <form @submit.prevent="addNewspaper">
-        <div class="form-group">
-          <input v-model="newspaperForm.name" type="text" placeholder="Название газеты" class="form-control"
-                 id="newspaperName" required/>
-        </div>
-        <div class="form-group">
-          <input v-model="newspaperForm.edition_index" type="text" placeholder="Индекс выпуска" class="form-control"
-                 id="editionIndex" required/>
-        </div>
-        <div class="form-group">
-          <select v-model="newspaperForm.editor" class="form-control" id="editor" required>
-            <option disabled selected value="">Редактор</option>
-            <option v-for="editor in editors" :key="editor.id" :value="editor.id">
-              {{ editor.first_name }} {{ editor.last_name }} {{ editor.middle_name }}
-            </option>
-          </select>
-        </div>
 
-        <div class="form-group">
-          <input v-model="newspaperForm.price_per_copy" type="text" placeholder="Цена за копию" class="form-control"
-                 id="pricePerCopy" required/>
-        </div>
-        <button type="submit" class="btn btn-primary">Добавить</button>
-      </form>
-    </div>
-
-    <div class="search-bar text-center">
-      <h3>Список газет</h3>
-      <div class="input-group">
-        <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по названию газеты"/>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button">Искать</button>
-        </div>
-      </div>
-    </div>
-
-    <ul class="newspaper-list">
-      <li v-for="newspaper in filteredNewspapers" :key="newspaper.id" class="list-group-item">
-        <h4>{{ newspaper.name }}</h4>
-        <p><strong>Индекс выпуска:</strong> {{ newspaper.edition_index }}</p>
-        <p><strong>Редактор:</strong> {{ newspaper.editor }}</p>
-        <p><strong>Цена за копию:</strong> {{ newspaper.price_per_copy }} ₽</p>
-
-        <div v-if="newspaper.printing_houses.length > 0">
-          <p><strong>Типографии:</strong></p>
-          <ul>
-            <li v-for="printingHouse in newspaper.printing_houses" :key="printingHouse.id">
-              {{ printingHouse.name }} - {{ printingHouse.address }}
-            </li>
-          </ul>
-        </div>
-        <div v-else>
-          <p><em>Нет информации о печатных домах</em></p>
-        </div>
-
-        <div v-if="newspaper.post_offices.length > 0">
-          <p><strong>Почтовые отделения:</strong></p>
-          <ul>
-            <li v-for="postOffice in newspaper.post_offices" :key="postOffice.id">
-              {{ postOffice.number }} - {{ postOffice.address }}
-            </li>
-          </ul>
-        </div>
-        <div v-else>
-          <p><em>Нет информации о почтовых отделениях</em></p>
-        </div>
-        <button @click="deleteNewspaper(newspaper.id)" class="delete_button btn btn-danger">Удалить</button>
-      </li>
-    </ul>
-  </div>
-</template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import Layout from "@/components/Layout.vue";
 
 export default {
-  components: {NavBar},
+  components: {Layout},
   data() {
     return {
       editors: [],
@@ -169,24 +95,113 @@ export default {
 };
 </script>
 
+<template>
+  <Layout>
+    <template v-slot:form>
+      <h3>Добавить новую газету</h3>
+
+      <form @submit.prevent="addNewspaper">
+        <div class="form-group">
+          <input v-model="newspaperForm.name" type="text" placeholder="Название газеты" class="form-control"
+                 id="newspaperName" required/>
+        </div>
+
+        <div class="form-group">
+          <input v-model="newspaperForm.edition_index" type="text" placeholder="Индекс выпуска" class="form-control"
+                 id="editionIndex" required/>
+        </div>
+
+        <div class="form-group">
+          <select v-model="newspaperForm.editor" class="form-control" id="editor" required>
+            <option disabled selected value="">Редактор</option>
+            <option v-for="editor in editors" :key="editor.id" :value="editor.id">
+              {{ editor.first_name }} {{ editor.last_name }} {{ editor.middle_name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input v-model="newspaperForm.price_per_copy" type="text" placeholder="Цена за копию" class="form-control"
+                 id="pricePerCopy" required/>
+        </div>
+
+        <button type="submit" class="btn btn-custom">Добавить</button>
+      </form>
+    </template>
+
+    <template v-slot:list>
+      <div class="search-bar text-center">
+        <h3>Список газет</h3>
+        <div class="input-group">
+          <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по названию газеты"/>
+        </div>
+      </div>
+
+      <ul class="newspaper-list">
+        <li v-for="newspaper in filteredNewspapers" :key="newspaper.id" class="list-group-item">
+          <h4>{{ newspaper.name }}</h4>
+          <p><strong>Индекс выпуска:</strong> {{ newspaper.edition_index }}</p>
+          <p><strong>Редактор:</strong> {{ newspaper.editor }}</p>
+          <p><strong>Цена за копию:</strong> {{ newspaper.price_per_copy }} ₽</p>
+
+          <div v-if="newspaper.printing_houses.length > 0">
+            <p><strong>Типографии:</strong></p>
+            <ul>
+              <li v-for="printingHouse in newspaper.printing_houses" :key="printingHouse.id">
+                {{ printingHouse.name }} - {{ printingHouse.address }}
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            <p><em>Нет информации о печатных домах</em></p>
+          </div>
+
+          <div v-if="newspaper.post_offices.length > 0">
+            <p><strong>Почтовые отделения:</strong></p>
+            <ul>
+              <li v-for="postOffice in newspaper.post_offices" :key="postOffice.id">
+                {{ postOffice.number }} - {{ postOffice.address }}
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            <p><em>Нет информации о почтовых отделениях</em></p>
+          </div>
+          <button @click="deleteNewspaper(newspaper.id)" class="delete_button btn btn-danger">Удалить</button>
+        </li>
+      </ul>
+    </template>
+  </Layout>
+</template>
+
 <style scoped>
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .search-bar {
   text-align: center;
+  min-width: 600px;
   max-width: 600px;
   padding-top: 20px;
   padding-bottom: 20px;
   margin: auto;
 }
 
-
-.input-group-append {
-  padding-left: 10px;
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
 }
+
 
 .newspaper-list {
   list-style: none;
   padding: 0;
-  max-width: 600px;
+  min-width: 600px;
+  max-width: 1000px;
   margin: auto;
 }
 
@@ -195,24 +210,12 @@ export default {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   transition: box-shadow 0.3s ease;
 }
 
-
 .list-group-item:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.add-newspaper-form {
-  list-style: none;
-  padding: 0;
-  max-width: 600px;
-  margin: auto;
-}
-
-.add-newspaper-form .form-group {
-  margin-bottom: 15px;
 }
 
 .delete_button {

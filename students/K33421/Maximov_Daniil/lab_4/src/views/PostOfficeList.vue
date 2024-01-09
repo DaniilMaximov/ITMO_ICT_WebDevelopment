@@ -1,43 +1,3 @@
-<template>
-  <div>
-
-    <div class="add-post-office-form text-center">
-      <h3>Добавить новое почтовое отделение</h3>
-      <form @submit.prevent="addPostOffice">
-        <div class="form-group">
-          <input v-model="postOfficeForm.number" type="text" placeholder="Номер отделения" class="form-control"
-                 id="postOfficeNumber" required/>
-        </div>
-        <div class="form-group">
-          <input v-model="postOfficeForm.address" type="text" placeholder="Адрес отделения" class="form-control"
-                 id="postOfficeAddress" required/>
-        </div>
-        <button type="submit" class="btn btn-primary">Добавить</button>
-      </form>
-    </div>
-
-
-    <div class="search-bar text-center">
-      <h3>Список почтовых отделений</h3>
-      <div class="input-group">
-        <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по номеру отделения"/>
-        <div class="input-group-append">
-          <button @click="" class="btn btn-outline-secondary" type="button">Искать</button>
-        </div>
-      </div>
-    </div>
-
-    <ul class="post-office-list">
-      <li v-for="postOffice in filteredPostOffices" :key="postOffice.id" class="list-group-item">
-        <h4>{{ postOffice.number }}</h4>
-        <p><strong>Адрес отделения:</strong> {{ postOffice.address }}</p>
-        <button @click="deletePostOffice(postOffice.id)" class="delete_button btn btn-danger">Удалить</button>
-      </li>
-    </ul>
-  </div>
-</template>
-
-
 <script>
 export default {
   components: {},
@@ -117,11 +77,47 @@ export default {
 };
 </script>
 
+<template>
+  <div>
+
+    <div class="add-post-office-form text-center">
+      <h3>Добавить новое почтовое отделение</h3>
+      <form @submit.prevent="addPostOffice">
+        <div class="form-group">
+          <input v-model="postOfficeForm.number" type="text" placeholder="Номер отделения" class="form-control"
+                 id="postOfficeNumber" required/>
+        </div>
+        <div class="form-group">
+          <input v-model="postOfficeForm.address" type="text" placeholder="Адрес отделения" class="form-control"
+                 id="postOfficeAddress" required/>
+        </div>
+        <button type="submit" class="btn btn-custom">Добавить</button>
+      </form>
+    </div>
+
+
+    <div class="search-bar text-center">
+      <h3>Список почтовых отделений</h3>
+      <div class="input-group">
+        <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по номеру отделения"/>
+      </div>
+    </div>
+
+    <ul class="post-office-list">
+      <li v-for="postOffice in filteredPostOffices" :key="postOffice.id" class="list-group-item">
+        <h4>{{ postOffice.number }}</h4>
+        <p><strong>Адрес отделения:</strong> {{ postOffice.address }}</p>
+        <button @click="deletePostOffice(postOffice.id)" class="delete_button btn btn-danger">Удалить</button>
+      </li>
+    </ul>
+  </div>
+</template>
 
 <style scoped>
 .search-bar {
   text-align: center;
-  max-width: 600px;
+  min-width: 600px;
+  max-width: 1000px;
   padding-top: 20px;
   padding-bottom: 20px;
   margin: auto;
@@ -163,6 +159,12 @@ export default {
 
 .add-post-office-form .form-group {
   margin-bottom: 15px;
+}
+
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    min-width: 600px;
 }
 
 .delete_button {

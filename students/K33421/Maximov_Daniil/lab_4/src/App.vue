@@ -27,14 +27,26 @@
 
     <Sidebar>
       <ul class="sidebar-panel-nav">
-        <li>
-          <a href="#home">Home</a>
+        <li class="nav-item">
+          <router-link to="/profile" class="nav-link">Профиль</router-link>
         </li>
-        <li>
-          <a href="#about">About</a>
+       <li class="nav-item">
+          <router-link to="/newspapers" class="nav-link">Газеты</router-link>
         </li>
-        <li>
-          <a href="#contact">Contact</a>
+        <li class="nav-item">
+          <router-link to="/printing_house" class="nav-link">Типографии</router-link>
+        </li>
+         <li class="nav-item">
+          <router-link to="/post_offices" class="nav-link">Почтовые отделения</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/print_runs" class="nav-link">Тиражи</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/post_arrivals" class="nav-link">Поступления</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/post_arrivals" class="bottom-button">Выйти</router-link>
         </li>
       </ul>
     </Sidebar>
@@ -44,14 +56,12 @@
 <script>
 import Burger from "./components/Menu/Burger.vue";
 import Sidebar from "./components/Menu/Sidebar.vue";
-import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "app",
   components: {
     Burger,
     Sidebar,
-    NavBar
   }
 };
 </script>
@@ -65,13 +75,22 @@ body {
   overflow: auto;
 }
 
+.bottom-button {
+  position: fixed;
+  bottom: 5px;
+  left: 50px;
+}
+
 .main-nav {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+
   display: flex;
   justify-content: center;
   padding: 10px;
   overflow: auto;
-  height: 100%;
-  width: 100%;
 }
 
 ul.sidebar-panel-nav {

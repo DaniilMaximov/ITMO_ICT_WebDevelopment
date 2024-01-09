@@ -36,7 +36,8 @@ export default {
 
 #burger {
   position: fixed;
-  right: 5px;
+  left: 20px;
+  scale: 150%;
 }
 
 button {

@@ -1,43 +1,3 @@
-<template>
-
-  <div class="add-postal-arrival-form text-center">
-    <h3>Добавить новое поступление</h3>
-    <form @submit.prevent="addPostalArrival">
-      <div class="form-group">
-        <label for="copiesReceived">Количество поступивших копий</label>
-        <input v-model="postalArrivalForm.copies_received" type="number" placeholder="Количество поступивших копий"
-               class="form-control" id="copiesReceived" required/>
-      </div>
-      <div class="form-group">
-        <label for="postOffice">Почтовое отделение</label>
-        <select v-model="postalArrivalForm.post_office" class="form-control" id="postOffice" required>
-          <option v-for="postOffice in postOffices" :key="postOffice.id" :value="postOffice.id">
-            {{ postOffice.number }}
-          </option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="newspaperArrival">Газета</label>
-        <select v-model="postalArrivalForm.newspaper" class="form-control" id="newspaperArrival" required>
-          <option v-for="newspaper in newspapers" :key="newspaper.id" :value="newspaper.id">{{
-              newspaper.name
-            }}
-          </option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Добавить</button>
-    </form>
-  </div>
-
-  <ul class="postal-arrival-list">
-    <li v-for="postalArrival in postalArrivals" :key="postalArrival.id" class="list-group-item">
-      <h4>{{ postalArrival.copies_received }} копий</h4>
-      <p><strong>Почтовое отделение:</strong> {{ getPostOfficeNumber(postalArrival.post_office) }}</p>
-      <p><strong>Газета:</strong> {{ getNewspaperName(postalArrival.newspaper) }}</p>
-      <button @click="deletePostalArrival(postalArrival.id)" class="delete_button btn btn-danger">Удалить</button>
-    </li>
-  </ul>
-</template>
 
 
 <script>
@@ -168,6 +128,47 @@ export default {
   },
 };
 </script>
+
+<template>
+
+  <div class="add-postal-arrival-form text-center">
+    <h3>Добавить новое поступление</h3>
+    <form @submit.prevent="addPostalArrival">
+      <div class="form-group">
+        <label for="copiesReceived">Количество поступивших копий</label>
+        <input v-model="postalArrivalForm.copies_received" type="number" placeholder="Количество поступивших копий"
+               class="form-control" id="copiesReceived" required/>
+      </div>
+      <div class="form-group">
+        <label for="postOffice">Почтовое отделение</label>
+        <select v-model="postalArrivalForm.post_office" class="form-control" id="postOffice" required>
+          <option v-for="postOffice in postOffices" :key="postOffice.id" :value="postOffice.id">
+            {{ postOffice.number }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="newspaperArrival">Газета</label>
+        <select v-model="postalArrivalForm.newspaper" class="form-control" id="newspaperArrival" required>
+          <option v-for="newspaper in newspapers" :key="newspaper.id" :value="newspaper.id">{{
+              newspaper.name
+            }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+  </div>
+
+  <ul class="postal-arrival-list">
+    <li v-for="postalArrival in postalArrivals" :key="postalArrival.id" class="list-group-item">
+      <h4>{{ postalArrival.copies_received }} копий</h4>
+      <p><strong>Почтовое отделение:</strong> {{ getPostOfficeNumber(postalArrival.post_office) }}</p>
+      <p><strong>Газета:</strong> {{ getNewspaperName(postalArrival.newspaper) }}</p>
+      <button @click="deletePostalArrival(postalArrival.id)" class="delete_button btn btn-danger">Удалить</button>
+    </li>
+  </ul>
+</template>
 
 
 <style scoped>
