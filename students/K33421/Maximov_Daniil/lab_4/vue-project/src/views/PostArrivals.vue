@@ -37,7 +37,6 @@
       <button @click="deletePostalArrival(postalArrival.id)" class="delete_button btn btn-danger">Удалить</button>
     </li>
   </ul>
-  <theme-switcher></theme-switcher>
 </template>
 
 

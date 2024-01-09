@@ -43,9 +43,6 @@
       </svg>
     </div>
   </div>
-
-  <theme-switcher></theme-switcher>
-
 </template>
 
 <script>

@@ -38,7 +38,6 @@
       </div>
     </div>
 
-
     <ul class="newspaper-list">
       <li v-for="newspaper in filteredNewspapers" :key="newspaper.id" class="list-group-item">
         <h4>{{ newspaper.name }}</h4>
@@ -73,8 +72,6 @@
       </li>
     </ul>
   </div>
-  <theme-switcher></theme-switcher>
-
 </template>
 
 <script>
@@ -137,6 +134,14 @@ export default {
           .catch(error => console.error(`Error deleting newspaper with id ${id}: ${error}`));
     },
 
+    fetchNewspapers() {
+      fetch('http://127.0.0.1:8000/newspapers/list')
+          .then(response => response.json())
+          .then(data => (this.newspapers = data))
+          .catch(error => console.error('Ошибка при получении списка газет:', error));
+    },
+
+
 
     addNewspaper() {
       console.log('Post data:', JSON.stringify(this.newspaperForm));
@@ -157,6 +162,7 @@ export default {
               price_per_copy: '',
             }
             console.log('Newspaper added successfully:', data);
+            this.fetchNewspapers()
           })
           .catch(error => console.error('Error adding newspaper:', error));
     }

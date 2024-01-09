@@ -13,8 +13,11 @@
                  id="printingHouseAddress" required/>
         </div>
         <div class="form-group">
-          <input v-model="printingHouseForm.status" type="text" placeholder="Статус" class="form-control" id="status"
-                 required/>
+          <select v-model="printingHouseForm.status" class="form-control" id="status" required>
+            <option disabled value="">Выберите статус</option>
+            <option value="открыта">открыта</option>
+            <option value="закрыта">закрыта</option>
+          </select>
         </div>
         <button type="submit" class="btn btn-primary">Добавить</button>
       </form>
@@ -60,7 +63,6 @@
       </li>
     </ul>
   </div>
-  <theme-switcher></theme-switcher>
 </template>
 
 <script>

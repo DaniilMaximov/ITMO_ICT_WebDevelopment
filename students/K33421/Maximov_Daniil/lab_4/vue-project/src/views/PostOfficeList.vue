@@ -35,7 +35,6 @@
       </li>
     </ul>
   </div>
-  <theme-switcher></theme-switcher>
 </template>
 
 
@@ -87,6 +86,13 @@ export default {
           })
           .catch(error => console.error(`Error deleting postOffices with id ${id}: ${error}`));
     },
+    fetchPostOffices() {
+      fetch('http://127.0.0.1:8000/postoffices/')
+          .then(response => response.json())
+          .then(data => (this.postOffices = data))
+          .catch(error => console.error('Ошибка при получении списка почтовых отделений:', error));
+    },
+
     addPostOffice() {
 
       console.log('Post data:', JSON.stringify(this.postOfficeForm));
@@ -105,6 +111,7 @@ export default {
               address: '',
             };
             console.log('Post Office added successfully:', data);
+            this.fetchPostOffices()
           })
           .catch(error => console.error('Error adding Post Office:', error));
     },

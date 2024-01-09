@@ -19,7 +19,6 @@
 
     <button @click="updateProfile" class="btn btn-primary">Сохранить изменения</button>
   </div>
-  <theme-switcher></theme-switcher>
 </template>
 
 <script>

@@ -40,7 +40,6 @@
       </li>
     </ul>
   </div>
-  <theme-switcher></theme-switcher>
 </template>
 
 <script>
@@ -64,7 +63,6 @@ export default {
   mounted() {
     this.fetchNewspapers();
     this.fetchPrintingHouses();
-
     this.fetchPrintRuns();
   },
   methods: {
