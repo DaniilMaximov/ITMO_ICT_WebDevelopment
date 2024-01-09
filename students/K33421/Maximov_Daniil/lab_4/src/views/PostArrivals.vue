@@ -41,10 +41,8 @@
 
 
 <script>
-import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
-
 export default {
-  components: {ThemeSwitcher},
+  components: {},
   data() {
     return {
       newspapers: [],

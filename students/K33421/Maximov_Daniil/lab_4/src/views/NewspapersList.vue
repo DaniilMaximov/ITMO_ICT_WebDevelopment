@@ -75,11 +75,10 @@
 </template>
 
 <script>
-import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
 import NavBar from "@/components/NavBar.vue";
 
 export default {
-  components: {NavBar, ThemeSwitcher},
+  components: {NavBar},
   data() {
     return {
       editors: [],

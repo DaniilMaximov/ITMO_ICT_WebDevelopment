@@ -28,10 +28,9 @@
 
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
 
 export default {
-  components: {ThemeSwitcher},
+  components: {},
   data() {
     return {
       username: '',
