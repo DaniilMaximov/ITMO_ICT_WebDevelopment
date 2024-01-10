@@ -12,7 +12,7 @@
         <label for="password" class="form-label">Пароль:</label>
         <input v-model="password" type="password" id="password" name="password" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-primary mt-3">Войти</button>
+      <button type="submit" class="btn btn-primary btn-custom">Войти</button>
 
       <div v-if="error" class="alert alert-danger mt-3" role="alert">
         {{ error }}
@@ -113,4 +113,15 @@ export default {
 .alert.fade-out {
   animation: fadeOut 0.5s;
 }
+
+.container {
+  width: 800px;
+}
+
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    width: 100%;
+}
+
 </style>

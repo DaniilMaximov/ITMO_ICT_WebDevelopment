@@ -1,73 +1,77 @@
 <template>
-  <div>
+  <Layout>
+    <template v-slot:form>
+      <div class="add-printing-house-form text-center">
+        <h3>Добавить новую типографию</h3>
+        <form @submit.prevent="addPrintingHouse">
+          <div class="form-group">
+            <input v-model="printingHouseForm.name" type="text" placeholder="Название типографии" class="form-control"
+                   id="printingHouseName" required/>
+          </div>
+          <div class="form-group">
+            <input v-model="printingHouseForm.address" type="text" placeholder="Адрес" class="form-control"
+                   id="printingHouseAddress" required/>
+          </div>
+          <div class="form-group">
+            <select v-model="printingHouseForm.status" class="form-control" id="status" required>
+              <option disabled value="">Выберите статус</option>
+              <option value="открыта">открыта</option>
+              <option value="закрыта">закрыта</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-custom">Добавить</button>
+        </form>
+      </div>
+    </template>
 
-    <div class="add-printing-house-form text-center">
-      <h3>Добавить новую типографию</h3>
-      <form @submit.prevent="addPrintingHouse">
-        <div class="form-group">
-          <input v-model="printingHouseForm.name" type="text" placeholder="Название типографии" class="form-control"
-                 id="printingHouseName" required/>
+    <template v-slot:search>
+      <div class="search-bar text-center">
+        <h3>Список типографий</h3>
+        <div class="input-group">
+          <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по названию типографии"/>
         </div>
-        <div class="form-group">
-          <input v-model="printingHouseForm.address" type="text" placeholder="Адрес" class="form-control"
-                 id="printingHouseAddress" required/>
-        </div>
-        <div class="form-group">
-          <select v-model="printingHouseForm.status" class="form-control" id="status" required>
-            <option disabled value="">Выберите статус</option>
-            <option value="открыта">открыта</option>
-            <option value="закрыта">закрыта</option>
+
+        <div class="sorting-dropdown">
+          <label for="sortSelect">Сортировать тираж по:</label>
+          <select v-model="sortOrder" id="sortSelect" class="form-control">
+            <option value="asc">По возрастанию</option>
+            <option value="desc">По убыванию</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Добавить</button>
-      </form>
-    </div>
-
-    <div class="search-bar text-center">
-      <h3>Список типографий</h3>
-      <div class="input-group">
-        <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по названию типографии"/>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" @click="searchPrintingHouses">Искать</button>
-        </div>
       </div>
-
-      <div class="sorting-dropdown">
-        <label for="sortSelect">Сортировать тираж по:</label>
-        <select v-model="sortOrder" id="sortSelect" class="form-control">
-          <option value="asc">По возрастанию</option>
-          <option value="desc">По убыванию</option>
-        </select>
-      </div>
-    </div>
+    </template>
 
 
-    <ul class="printing-house-list">
-      <li v-for="printingHouse in filteredPrintingHouses" :key="printingHouse.id" class="list-group-item">
-        <h4>{{ printingHouse.name }}</h4>
-        <p><strong>Адрес:</strong> {{ printingHouse.address }}</p>
-        <p><strong>Статус:</strong> {{ printingHouse.status }}</p>
+    <template v-slot:list>
+      <ul class="printing-house-list">
+        <li v-for="printingHouse in filteredPrintingHouses" :key="printingHouse.id" class="list-group-item">
+          <h4>{{ printingHouse.name }}</h4>
+          <p><strong>Адрес:</strong> {{ printingHouse.address }}</p>
+          <p><strong>Статус:</strong> {{ printingHouse.status }}</p>
 
 
-        <div v-if="printingHouse.newspapers.length > 0">
-          <p><strong>Газеты:</strong></p>
-          <ul>
-            <li v-for="newspaper in printingHouse.newspapers" :key="newspaper.newspaper_name">
-              {{ newspaper.newspaper_name }} - {{ newspaper.copies_count }}
-            </li>
-          </ul>
-        </div>
-        <p v-else>Данная типография еще не печатает газеты</p>
-        <button @click="deletePrintingHouse(printingHouse.id)" class="delete_button btn btn-danger">Удалить</button>
+          <div v-if="printingHouse.newspapers.length > 0">
+            <p><strong>Газеты:</strong></p>
+            <ul>
+              <li v-for="newspaper in printingHouse.newspapers" :key="newspaper.newspaper_name">
+                {{ newspaper.newspaper_name }} - {{ newspaper.copies_count }}
+              </li>
+            </ul>
+          </div>
+          <p v-else>Данная типография еще не печатает газеты</p>
+          <button @click="deletePrintingHouse(printingHouse.id)" class="delete_button btn btn-danger">Удалить</button>
 
-      </li>
-    </ul>
-  </div>
+        </li>
+      </ul>
+    </template>
+  </Layout>
 </template>
 
 <script>
+import Layout from "@/components/Layout.vue";
+
 export default {
-  components: {},
+  components: {Layout},
   data() {
     return {
       printingHouses: [],
@@ -85,7 +89,9 @@ export default {
       let filteredHouses = this.printingHouses.filter(printingHouse =>
           printingHouse.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
+
       const orderMultiplier = this.sortOrder === 'asc' ? 1 : -1;
+
       filteredHouses.sort((a, b) =>
           orderMultiplier * (a.newspapers.reduce((acc, curr) => acc + curr.copies_count, 0) -
               b.newspapers.reduce((acc, curr) => acc + curr.copies_count, 0))
@@ -197,6 +203,11 @@ export default {
   padding-left: 10px;
 }
 
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    width: 100%;
+}
 
 .delete_button {
   margin-top: 20px;

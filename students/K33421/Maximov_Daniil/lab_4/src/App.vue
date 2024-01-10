@@ -27,26 +27,26 @@
 
     <Sidebar>
       <ul class="sidebar-panel-nav">
-        <li class="nav-item">
+        <li>
           <router-link to="/profile" class="nav-link">Профиль</router-link>
         </li>
-       <li class="nav-item">
+       <li>
           <router-link to="/newspapers" class="nav-link">Газеты</router-link>
         </li>
-        <li class="nav-item">
+        <li>
           <router-link to="/printing_house" class="nav-link">Типографии</router-link>
         </li>
-         <li class="nav-item">
+         <li>
           <router-link to="/post_offices" class="nav-link">Почтовые отделения</router-link>
         </li>
-        <li class="nav-item">
+        <li>
           <router-link to="/print_runs" class="nav-link">Тиражи</router-link>
         </li>
-        <li class="nav-item">
+        <li>
           <router-link to="/post_arrivals" class="nav-link">Поступления</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/post_arrivals" class="bottom-button">Выйти</router-link>
+        <li>
+          <router-link to="/" class="nav-link bottom-button">Выйти</router-link>
         </li>
       </ul>
     </Sidebar>
@@ -103,5 +103,13 @@ ul.sidebar-panel-nav > li > a {
   font-size: 1.5rem;
   display: block;
   padding-bottom: 0.5em;
+}
+
+.nav-link:hover{
+  color: #b0b0b0 !important;
+}
+
+.router-link-exact-active {
+  color: #b0b0b0 !important;
 }
 </style>

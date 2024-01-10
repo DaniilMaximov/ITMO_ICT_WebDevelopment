@@ -81,7 +81,21 @@ export default {
       <input type="text" class="form-control" id="middleName" v-model="newMiddleName" />
     </div>
 
-    <button @click="updateProfile" class="btn btn-primary">Сохранить изменения</button>
+    <button @click="updateProfile" class="btn btn-primary btn-custom">Сохранить изменения</button>
   </div>
 </template>
+
+<style scoped>
+.container {
+  width: 400px;
+}
+
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    width: 100%;
+}
+</style>
+
+
 

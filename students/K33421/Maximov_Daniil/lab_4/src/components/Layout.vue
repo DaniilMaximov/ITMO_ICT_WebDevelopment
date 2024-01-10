@@ -8,8 +8,12 @@
       <slot name="form"></slot>
     </div>
 
-    <div class="list">
-      <slot name="list"></slot>
+    <div class="list_container">
+      <slot name="search"></slot>
+
+      <div class="list_container">
+        <slot name="list"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -31,12 +35,15 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 300px;
 }
 
-.list {
+.list_container {
   overflow: auto;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 400px;
 }
+
 </style>

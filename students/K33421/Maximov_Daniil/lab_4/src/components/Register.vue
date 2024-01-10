@@ -29,7 +29,7 @@
         <input v-model="registerData.password" type="password" id="password" name="password" class="form-control" required minlength="6">
       </div>
       <div class="mb-3 text-danger">{{ errorMessage }}</div>
-      <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+      <button type="submit" class="btn btn-primary btn-custom">Зарегистрироваться</button>
     </form>
 
     <div class="text-center">
@@ -109,4 +109,14 @@ export default {
 
 
 <style scoped>
+
+.container {
+  width: 400px;
+}
+
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    width: 100%;
+}
 </style>

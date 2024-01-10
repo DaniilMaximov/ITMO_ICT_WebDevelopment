@@ -1,50 +1,54 @@
 <template>
-  <div>
+  <Layout>
+    <template v-slot:form>
+      <div class="add-print-run-form text-center">
+        <h3>Добавить новый тираж</h3>
+        <form @submit.prevent="addPrintRun">
+          <div class="form-group">
+            <input v-model="printRunForm.copies_count" type="number" placeholder="Количество копий" class="form-control"
+                   id="copiesCount" required/>
+          </div>
+          <div class="form-group">
+            <select v-model="printRunForm.newspaper" class="form-control" id="newspaper" required>
+              <option v-for="newspaper in newspapers" :key="newspaper.id" :value="newspaper.id">{{
+                  newspaper.name
+                }}
+              </option>
+              <option disabled selected value="">Газета</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select v-model="printRunForm.printing_house" class="form-control" id="printingHouse" required>
+              <option v-for="printingHouse in printingHouses" :key="printingHouse.id" :value="printingHouse.id">
+                {{ printingHouse.name }}
+              </option>
+              <option disabled selected value="">Печатное отделение</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-custom">Добавить</button>
+        </form>
+      </div>
+    </template>
 
-    <div class="add-print-run-form text-center">
-      <h3>Добавить новый тираж</h3>
-      <form @submit.prevent="addPrintRun">
-        <div class="form-group">
-          <label for="copiesCount">Количество копий</label>
-          <input v-model="printRunForm.copies_count" type="number" placeholder="Количество копий" class="form-control"
-                 id="copiesCount" required/>
-        </div>
-        <div class="form-group">
-          <label for="newspaper">Газета</label>
-          <select v-model="printRunForm.newspaper" class="form-control" id="newspaper" required>
-            <option v-for="newspaper in newspapers" :key="newspaper.id" :value="newspaper.id">{{
-                newspaper.name
-              }}
-            </option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="printingHouse">Печатное предприятие</label>
-          <select v-model="printRunForm.printing_house" class="form-control" id="printingHouse" required>
-            <option v-for="printingHouse in printingHouses" :key="printingHouse.id" :value="printingHouse.id">
-              {{ printingHouse.name }}
-            </option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Добавить</button>
-      </form>
-    </div>
-
-    <ul class="print-run-list">
-      <li v-for="printRun in printRuns" :key="printRun.id" class="list-group-item">
-        <h4>{{ printRun.copiesCount }}</h4>
-        <p><strong>Газета:</strong> {{ getNewspaperName(printRun.newspaper) }}</p>
-        <p><strong>Типография:</strong> {{ getPrintingHouseName(printRun.printing_house) }}</p>
-        <p><strong>Размер тиража:</strong> {{ printRun.copies_count }}</p>
-        <button @click="deletePrintRun(printRun.id)" class="delete_button btn btn-danger">Удалить</button>
-      </li>
-    </ul>
-  </div>
+    <template v-slot:list>
+      <ul class="print-run-list">
+        <li v-for="printRun in printRuns" :key="printRun.id" class="list-group-item">
+          <h4>{{ printRun.copiesCount }}</h4>
+          <p><strong>Газета:</strong> {{ getNewspaperName(printRun.newspaper) }}</p>
+          <p><strong>Типография:</strong> {{ getPrintingHouseName(printRun.printing_house) }}</p>
+          <p><strong>Размер тиража:</strong> {{ printRun.copies_count }}</p>
+          <button @click="deletePrintRun(printRun.id)" class="delete_button btn btn-danger">Удалить</button>
+        </li>
+      </ul>
+    </template>
+  </Layout>
 </template>
 
 <script>
+import Layout from "@/components/Layout.vue";
+
 export default {
-  components: {},
+  components: {Layout},
   data() {
     return {
       newspapers: [],
@@ -137,11 +141,7 @@ export default {
 
 <style scoped>
 .add-print-run-form {
-  text-align: center;
-  max-width: 600px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin: auto;
+
 }
 
 .add-print-run-form .form-group {
@@ -157,14 +157,6 @@ export default {
   width: 100%;
   padding: 8px;
   font-size: 16px;
-}
-
-.search-bar {
-  text-align: center;
-  max-width: 600px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin: auto;
 }
 
 .print-run-list {
@@ -185,6 +177,12 @@ export default {
 
 .list-group-item:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom {
+    background-color: #130f40;
+    color: #ffffff;
+    width: 100%;
 }
 
 .delete_button {

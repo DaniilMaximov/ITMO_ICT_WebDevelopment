@@ -129,44 +129,55 @@ export default {
       </form>
     </template>
 
-    <template v-slot:list>
+    <template v-slot:search>
       <div class="search-bar text-center">
         <h3>Список газет</h3>
+
         <div class="input-group">
           <input v-model="searchQuery" type="text" class="form-control" placeholder="Поиск по названию газеты"/>
         </div>
       </div>
+    </template>
 
+    <template v-slot:list>
       <ul class="newspaper-list">
         <li v-for="newspaper in filteredNewspapers" :key="newspaper.id" class="list-group-item">
           <h4>{{ newspaper.name }}</h4>
+
           <p><strong>Индекс выпуска:</strong> {{ newspaper.edition_index }}</p>
+
           <p><strong>Редактор:</strong> {{ newspaper.editor }}</p>
+
           <p><strong>Цена за копию:</strong> {{ newspaper.price_per_copy }} ₽</p>
 
           <div v-if="newspaper.printing_houses.length > 0">
             <p><strong>Типографии:</strong></p>
+
             <ul>
               <li v-for="printingHouse in newspaper.printing_houses" :key="printingHouse.id">
                 {{ printingHouse.name }} - {{ printingHouse.address }}
               </li>
             </ul>
           </div>
+
           <div v-else>
             <p><em>Нет информации о печатных домах</em></p>
           </div>
 
           <div v-if="newspaper.post_offices.length > 0">
             <p><strong>Почтовые отделения:</strong></p>
+
             <ul>
               <li v-for="postOffice in newspaper.post_offices" :key="postOffice.id">
                 {{ postOffice.number }} - {{ postOffice.address }}
               </li>
             </ul>
           </div>
+
           <div v-else>
             <p><em>Нет информации о почтовых отделениях</em></p>
           </div>
+
           <button @click="deleteNewspaper(newspaper.id)" class="delete_button btn btn-danger">Удалить</button>
         </li>
       </ul>
@@ -183,9 +194,8 @@ form {
 }
 
 .search-bar {
+  width: 100%;
   text-align: center;
-  min-width: 600px;
-  max-width: 600px;
   padding-top: 20px;
   padding-bottom: 20px;
   margin: auto;
@@ -194,14 +204,12 @@ form {
 .btn-custom {
     background-color: #130f40;
     color: #ffffff;
+    width: 100%;
 }
-
 
 .newspaper-list {
   list-style: none;
   padding: 0;
-  min-width: 600px;
-  max-width: 1000px;
   margin: auto;
 }
 
